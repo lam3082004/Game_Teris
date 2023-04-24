@@ -1,1 +1,3 @@
-
+Game được làm theo game Teris mà mọi người hay chơi
+Mỗi khi hình lấp đầy một dòng thì nó tự xóa và cứ thế
+...

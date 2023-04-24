@@ -42,7 +42,7 @@ private:
 	enum
 	{
 		ScreenW = 600,
-		ScreenH = 960
+		ScreenH = 920
 	};
 	enum
 	{

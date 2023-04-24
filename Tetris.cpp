@@ -5,16 +5,16 @@
 	4	5	6	7
 */
 const int Tetris::figures[7][4] =
-{
-	0,1,2,3,	// I
-	0,4,5,6,	// J
-	2,6,5,4,	// L
-	1,2,5,6,	// O
-	2,1,5,4,	// S
-	1,4,5,6,	// T
-	0,1,5,6,	// Z
+	{
+		0, 1, 2, 3, // I
+		0, 4, 5, 6, // J
+		2, 6, 5, 4, // L
+		1, 2, 5, 6, // O
+		2, 1, 5, 4, // S
+		1, 4, 5, 6, // T
+		0, 1, 5, 6, // Z
 };
-bool Tetris::init(const char* title)
+bool Tetris::init(const char *title)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{
@@ -29,8 +29,9 @@ bool Tetris::init(const char* title)
 				int imgFlags = IMG_INIT_PNG;
 				int initted = IMG_Init(imgFlags);
 				if ((initted & imgFlags) != imgFlags)
-					std::cout << "Failed to init required png support\n" << "IMG_Init() Error : " << IMG_GetError() << std::endl;
-				SDL_Surface* loadSurf = IMG_Load("img/background.png");
+					std::cout << "Failed to init required png support\n"
+							  << "IMG_Init() Error : " << IMG_GetError() << std::endl;
+				SDL_Surface *loadSurf = IMG_Load("img/background.png");
 				background = SDL_CreateTextureFromSurface(render, loadSurf);
 				SDL_FreeSurface(loadSurf);
 				loadSurf = IMG_Load("img/blocks.png");
@@ -84,7 +85,7 @@ void Tetris::handleEvents()
 			case SDLK_RIGHT:
 				dx = 1;
 				break;
-			
+
 			default:
 				break;
 			}
@@ -92,17 +93,17 @@ void Tetris::handleEvents()
 			break;
 		}
 	}
-	const Uint8* state = SDL_GetKeyboardState(NULL);
+	const Uint8 *state = SDL_GetKeyboardState(NULL);
 	if (state[SDL_SCANCODE_DOWN])
 		delay = 50;
 }
 
-void Tetris::setRectPos(SDL_Rect& rect, int x, int y, int w, int h)
+void Tetris::setRectPos(SDL_Rect &rect, int x, int y, int w, int h)
 {
-	rect = { x, y, w, h };
+	rect = {x, y, w, h};
 }
 
-void Tetris::moveRectPos(SDL_Rect& rect, int x, int y)
+void Tetris::moveRectPos(SDL_Rect &rect, int x, int y)
 {
 	rect.x += x;
 	rect.y += y;
@@ -120,11 +121,10 @@ bool Tetris::isvalid()
 
 void Tetris::gameplay()
 {
-	
 	////////// backup
 	for (int i = 0; i < 4; i++)
 		backup[i] = items[i];
-	////////// move
+	//////ii//// move
 	if (dx)
 	{
 		for (int i = 0; i < 4; i++)
@@ -135,11 +135,11 @@ void Tetris::gameplay()
 			for (int i = 0; i < 4; i++)
 				items[i] = backup[i];
 	}
-	
+
 	///////// rotate
 	if (rotate)
 	{
-		Point p = items[2];	// center of rotation
+		Point p = items[2]; // center of rotation
 		for (int i = 0; i < 4; i++)
 		{
 			int x = items[i].y - p.y;
@@ -152,7 +152,7 @@ void Tetris::gameplay()
 				items[i] = backup[i];
 	}
 	///////// tick
-	if (currentTime - startTime >delay)
+	if (currentTime - startTime > delay)
 	{
 		for (int i = 0; i < 4; i++)
 			backup[i] = items[i];
@@ -185,7 +185,6 @@ void Tetris::gameplay()
 	dx = 0;
 	rotate = false;
 	delay = 300;
-
 }
 
 void Tetris::updateRender()
@@ -209,7 +208,6 @@ void Tetris::updateRender()
 	}
 
 	SDL_RenderPresent(render);
-
 }
 
 void Tetris::clean()
